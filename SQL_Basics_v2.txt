@@ -1,0 +1,66 @@
+-- INIT database
+-- Part 1: Creating the Database Table
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(255) NOT NULL,
+    Author VARCHAR(255) NOT NULL,
+    Genre VARCHAR(100) NOT NULL,
+    PublishedYear INT CHECK (PublishedYear >= 1000 AND PublishedYear <= 2024) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    ISBN VARCHAR(13) UNIQUE
+);
+
+-- Insert Data into the Table:
+-- Insert data into the Books table
+INSERT INTO Books (Title, Author, Genre, PublishedYear, Price, ISBN) VALUES 
+('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 1960, 10.99, NULL),
+('1984', 'George Orwell', 'Dystopian', 1949, 8.99, '9780451524935'),
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Classic', 1925, 12.50, '9780743273565'),
+('The Catcher in the Rye', 'J.D. Salinger', 'Classic', 1951, 7.99, NULL),
+('Pride and Prejudice', 'Jane Austen', 'Romance', 1813, 9.99, '9780141439518');
+
+-- Part 2:
+-- QUERY database
+-- 1. Retrieve All Records:
+-- Write a query to retrieve all the data from your table, displaying each column.
+
+SELECT * FROM Books;
+
+-- 2. List Distinct Genres:
+-- Write a query to find all the unique genres represented in your table.
+
+SELECT DISTINCT Genre FROM Books;
+
+-- 3. Filter by Price:
+-- Write a query to find all books that cost less than $10.
+
+SELECT * FROM Books WHERE Price < 10;
+
+-- 4. Order by Year:
+-- Write a query to list all books, ordered by their published year in ascending order.
+
+ 
+SELECT * FROM Books
+ORDER BY PublishedYear ASC;
+
+-- 5. Filter with Multiple Conditions:
+-- Write a query to find all books that are either in the 'Classic' genre or have a price between $8.00 and $12.00, but exclude books published before 1950.
+
+SELECT * FROM Books
+WHERE (Genre = 'Classic' OR Price BETWEEN 8.00 AND 12.00)
+AND PublishedYear >= 1950;
+
+-- 6. Find NULL ISBNs:
+-- Write a query to find all books where the ISBN is NULL.
+
+SELECT * FROM Books WHERE ISBN IS NULL;
+
+-- 7. Use of IN Clause:
+-- Write a query to find all books written by either 'Harper Lee' or 'George Orwell'. 
+
+SELECT * FROM Books WHERE Author IN ('Harper Lee', 'George Orwell');
+
+-- 8. Apply an Alias:
+-- Write a query that retrieves the book title and price, but display the price as "Cost" using an alias.
+
+SELECT Title, Price AS Cost FROM Books;
